@@ -1,0 +1,67 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.chatbot-messages {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.user {
+  background-color: #3498db;
+  color: white;
+  align-self: flex-end;
+}
+
+.bot {
+  background-color: #2ecc71;
+  color: white;
+  align-self: flex-start;
+}
+
+.chatbot-input {
+  display: flex;
+  margin-top: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 8px 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
