@@ -6,7 +6,7 @@ const Chatbot = () => {
   const [input, setInput] = useState('');
   const [apiKey, setApiKey] = useState('');
   const [apiError, setApiError] = useState(null);
-  const [selectedBot, setSelectedBot] = useState('huggingFace'); // Default to Hugging Face
+  const [selectedBot, setSelectedBot] = useState('huggingFace'); 
 
   useEffect(() => {
     setMessages([{ text: 'Hello! How can I help you?', sender: 'bot' }]);
@@ -25,8 +25,8 @@ const Chatbot = () => {
   };
 
   const handleApiSubmit = () => {
-    // You can add logic here to handle the API key submission
     console.log('API Key submitted:', apiKey);
+    // Perform actions based on selected bot
   };
 
   const handleSendMessage = async () => {
@@ -38,19 +38,19 @@ const Chatbot = () => {
     try {
       const response = await axios.post('http://localhost:8000/api/chatbot/', {
         message: input,
-        api_key: apiKey, // Include the API key in the request payload
-        bot_type: selectedBot, // Include the selected bot type in the request payload
+        api_key: apiKey, 
+        bot_type: selectedBot, 
       });
 
       setMessages([...messages, { text: response.data.message, sender: 'bot' }]);
-      setApiError(null); // Clear any previous API errors
+      setApiError(null); 
     } catch (error) {
       console.error('Error sending message to chatbot:', error);
 
       if (error.response && error.response.status === 401) {
         setApiError('Invalid API Key. Please check and try again.');
       } else {
-        setApiError('Error communicating with the server. Please try again later.');
+        setApiError('Error communicating with the server or Invalid API Key. Please check and try again.');
       }
     }
   };
@@ -58,13 +58,27 @@ const Chatbot = () => {
   return (
     <div className="chatbot-container">
       <div className="api-key-container">
-        <input
-          type="text"
-          value={apiKey}
-          onChange={handleApiKeyChange}
-          placeholder="Enter API Key..."
-        />
-        <button onClick={handleApiSubmit}>Submit</button>
+        {selectedBot === 'huggingFace' ? (
+          <>
+            <input
+              type="text"
+              value={apiKey}
+              onChange={handleApiKeyChange}
+              placeholder="Enter Hugging Face API Key..."
+            />
+            <button onClick={handleApiSubmit}>Submit</button>
+          </>
+        ) : (
+          <>
+            <input
+              type="text"
+              value={apiKey}
+              onChange={handleApiKeyChange}
+              placeholder="Enter OpenAI API Key..."
+            />
+            <button onClick={handleApiSubmit}>Submit</button>
+          </>
+        )}
         {apiError && <div className="api-error">{apiError}</div>}
       </div>
       <div className="bot-select-container">
